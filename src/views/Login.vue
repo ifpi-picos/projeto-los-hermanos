@@ -1,39 +1,17 @@
 <template>
-  <b-card class="col-md-4 ml-auto mr-auto mt-4 text-left bg-info">
-    <b-form
-      @submit="onSubmit"
-      @reset="onReset"
-    >
-      <b-form-group
-        id="input-group-1"
-        label="Email:"
-        label-for="email"
-      >
-        <b-form-input
-          id="email"
-          v-model="usuario.email"
-          type="email"
-          required
-          placeholder="Enter email"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-2"
-        label="Senha:"
-        label-for="senha"
-      >
-        <b-form-input
-          id="senha"
-          v-model="usuario.senha"
-          type="password"
-          required
-          placeholder="Informa a senha"
-        ></b-form-input>
-      </b-form-group>
-        <b-button class="float-right" variant="light" type="submit">Entrar</b-button>
-    </b-form>
-  </b-card>
+  <b-container class="fixed-top d-flex align-items-center justify-content-center container">
+    <b-card class="card">
+      <b-card-header class="card-header">
+        Mural Online
+      </b-card-header>
+      <b-card-body>
+        <b-button pill class="google-button">
+          <img  src="../assets/google-icon.svg">
+          Entre com o Google
+        </b-button>
+      </b-card-body>
+    </b-card>
+  </b-container>
 </template>
 
 <script>
@@ -49,4 +27,36 @@ export default {
 }
 </script>
 <style scoped>
+body {
+  background-color: #004910;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  height: 100%;
+  
+}
+.card {
+  padding: 0% 10%;
+}
+
+.google-button {
+  display: inline;
+  background-color: #EEEEEE;
+  color: #132938;
+  margin: 2% 0%;
+}
+
+.google-button img{
+  height: 0.5cm;
+  width: auto;
+
+}
+
+.card-header {
+  text-align: center;
+  background: #fff;
+}
 </style>

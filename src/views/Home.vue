@@ -1,14 +1,17 @@
 <template>
-  <div class="container">
-    <h2 class="text-center">Mural Online</h2>
-  </div>
+  <b-container>
+    <Header></Header>
+  </b-container>
 </template>
 
 <script>
 // @ is an alias to /src
+import Header from '@/components/Header.vue'
 
 export default {
   name: 'Home',
-  components: {}
+  components: {
+      Header
+  }
 }
 </script>
