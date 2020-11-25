@@ -1,7 +1,7 @@
 <template>
-  <b-container>
+  <b-container-fluid>
     <Header></Header>
-  </b-container>
+  </b-container-fluid>
 </template>
 
 <script>
