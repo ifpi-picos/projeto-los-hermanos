@@ -6,7 +6,7 @@
              <b-icon-arrow-clockwise class="icon"></b-icon-arrow-clockwise>
              Atualizar
          </b-nav-item>
-         <b-nav-item > 
+         <b-nav-item >
              <b-icon-plus class="icon"></b-icon-plus>
              Criar
          </b-nav-item>
@@ -23,10 +23,10 @@
 
 <script>
 export default {
-    
+
   data() {
     return {
-      
+
     }
   },
 }
@@ -37,7 +37,8 @@ body {
 }
 .header {
     background-color: #004910;
-    
+    min-width: 100%;
+
 }
 
 .brand {

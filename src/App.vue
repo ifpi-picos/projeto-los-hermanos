@@ -5,8 +5,9 @@
 </template>
 
 <style>
-body {
-  background-color: #004910;
-  width: 100%;
+
+#app {
+  background-color:#00FA9A;
+  height: 100vh !important;
 }
 </style>

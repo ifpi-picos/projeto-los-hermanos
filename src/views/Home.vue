@@ -1,7 +1,7 @@
 <template>
-  <b-container-fluid>
+  <b-container fluid class="pr-0 pl-0">
     <Header></Header>
-  </b-container-fluid>
+  </b-container>
 </template>
 
 <script>
