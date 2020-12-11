@@ -1,17 +1,45 @@
 <template>
-  <b-container
-    class="fixed-top d-flex align-items-center justify-content-center container"
-  >
-    <b-card class="card">
-      <b-card-header class="card-header"> Mural Online </b-card-header>
-      <b-card-body>
-        <b-button @click="login()" pill class="google-button">
-          <img src="../assets/google-icon.svg" />
-          Entre com o Google
-        </b-button>
-      </b-card-body>
-    </b-card>
-  </b-container>
+  <div>
+    <b-card class="col-md-4 ml-auto mr-auto mt-4 bg-success">
+    <h2 class="text-center">LOGIN</h2>
+    <b-form @submit.prevent="login">
+      <b-form-group
+        label="Email:"
+        label-for="email"
+      >
+      <b-input-group>  
+        <b-input-group-prepend>
+          <span class="icone-email"
+            ><i class="far fa-envelope"></i>
+          </span>
+      </b-input-group-prepend>
+       
+        <b-form-input
+          id="email"
+          type="email"
+          v-model="email"
+          required
+          placeholder="Informe seu email"
+        ></b-form-input>
+      </b-input-group>
+      </b-form-group>
+
+      <b-form-group
+        label="Senha:"
+        label-for="senha"
+      >
+        <b-form-input
+          id="senha"
+          type="password"
+          required
+          v-model="senha"
+          placeholder="Informe sua senha"
+        ></b-form-input>
+      </b-form-group>
+      <b-button type="submit" class="float-right" variant="primary">Entrar</b-button>
+    </b-form>
+  </b-card>
+  </div>
 </template>
 
 <script>
@@ -34,7 +62,8 @@ methods: {
         usuario.photoURL = result.user.photoURL
         usuario.email = result.user.email
         usuario.displayName = result.user.displayName
-        await this.salvarUsuario(usuario, result.user.uid)
+        this.$router.push({ name: "home" })
+        //await this.salvarUsuario(usuario, result.user.uid)
       })
       .catch(function (error) {
         console.error(error)
@@ -45,34 +74,7 @@ methods: {
 
 </script>
 <style scoped>
-body {
-  background-color: #004910;
-  width: 100%;
-  height: 100%;
-  font-family: "Roboto", sans-serif;
-}
-
-.container {
-  height: 100%;
-}
-.card {
-  padding: 0% 10%;
-}
-
-.google-button {
-  display: inline;
-  background-color: #eeeeee;
-  color: #132938;
-  margin: 2% 0%;
-}
-
-.google-button img {
-  height: 0.5cm;
-  width: auto;
-}
-
-.card-header {
-  text-align: center;
-  background: #fff;
+.icone-email {
+  color: red;  
 }
 </style>
