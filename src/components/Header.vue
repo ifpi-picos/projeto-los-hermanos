@@ -6,7 +6,7 @@
              <b-icon-arrow-clockwise class="icon"></b-icon-arrow-clockwise>
              Atualizar
          </b-nav-item>
-         <b-nav-item >
+         <b-nav-item to="Postagem">
              <b-icon-plus class="icon"></b-icon-plus>
              Criar
          </b-nav-item>
@@ -14,22 +14,46 @@
              <b-icon-share class="icon"></b-icon-share>
              Compartilhar
          </b-nav-item>
-         <b-dropdown-item>
-             <b-icon-three-dots-vertical></b-icon-three-dots-vertical>
-         </b-dropdown-item>
+         <b-avatar ></b-avatar>
+         <b-nav-item-dropdown right >
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em>{{ username }}</em>
+            </template>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item @click="logout()">Sign Out</b-dropdown-item>
+         </b-nav-item-dropdown>
      </b-navbar-nav>
  </b-navbar>
 </template>
 
 <script>
 export default {
-
   data() {
     return {
-
+        
     }
   },
+  methods: {
+      logout () {
+      this.$firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          localStorage.removeItem('username')
+          console.log('Logout com sucesso!')
+          this.$router.push('login')
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
+    }
+  }
+
 }
+
+
+
 </script>
 <style scoped>
 body {
@@ -53,8 +77,4 @@ body {
     color: #eeeeee;
 }
 
-/* .icon {
-    height: 30px;
-    width: 30px;
-} */
 </style>

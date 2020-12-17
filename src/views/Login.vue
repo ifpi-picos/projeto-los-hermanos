@@ -49,13 +49,6 @@
               >Entrar</b-button
             >
           </b-form>
-          <b-button
-            @click="logout"
-            type="submit"
-            class="float-right"
-            variant="outline-secondary"
-            >logout</b-button
-          >
         </b-card>
       </b-col>
     </b-row>
@@ -63,7 +56,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'Login',
   data () {
@@ -72,11 +64,13 @@ export default {
       senha: ''
     }
   },
-methods: {
-  login () {
-    this.$firebase.auth().signInWithEmailAndPassword(this.email, this.senha)
-  .then(async(result) => {
-    localStorage.setItem('username', result.user.displayName)
+  methods: {
+    login () {
+      this.$firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.senha)
+        .then(async result => {
+          localStorage.setItem('username', result.user.displayName)
           const usuario = {}
           usuario.photoURL = result.user.photoURL
           usuario.email = result.user.email
@@ -87,13 +81,13 @@ methods: {
             console.log('add new user ')
             await this.salvarUsuario(usuario, result.user.uid)
           }
-  })
-  .catch((error) => {
-  console.log(error)
-    //var errorMessage = error.message;
-    // ..
-  });
-
+        })
+        this.$router.push({ name: 'home'})
+        .catch(error => {
+          console.log(error)
+          //var errorMessage = error.message;
+          // ..
+        })
     },
 
     async salvarUsuario (usuario, uid) {
@@ -111,7 +105,7 @@ methods: {
         })
     },
 
-     async usuarioExistente (uid) {
+    async usuarioExistente (uid) {
       const docRef = this.$firebase
         .firestore()
         .collection('usuarios')
@@ -119,16 +113,7 @@ methods: {
       const doc = await docRef.get()
       return doc.exists
     },
-
-    logout() {
-      this.$firebase.auth().signOut().then(function() {
-        console.log("sucesso")
-      }).catch(function(error) {
-        console.log(error)
-      });
-    }
   }
-
 }
 </script>
 <style scoped>
@@ -137,10 +122,6 @@ methods: {
   border-right: none !important;
 }
 
-/* .icone-input {
-  color: #007bff;
-  color: #00FA9A;
-} */
 .inputs-login {
   border-left: none !important;
 }
@@ -150,11 +131,4 @@ methods: {
   border: 0.5px #dee2e6 solid !important;
 }
 
-/* .view-heigh {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 </style>

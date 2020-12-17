@@ -1,29 +1,36 @@
 <template>
   <div>
-    <h3 class="text-center">Fazer uma Nova Postagem</h3>
-    <form>
-      <label for="titulo">Titulo</label>
-      <input
-        class="form-control"
-        type="text"
-        id="titulo"
-        required
-        v-model="post.titulo"
-      />
-      <br />
-      <label for="texto">Texto</label>
-      <input
-        class="form-control"
-        type="text"
-        required
-        id="titulo"
-        v-model="post.texto"
-      />
-      <br />
-      <button class="btn btn-primary" @click.prevent="salvar()" type="buton">
-        Salvar
-      </button>
-    </form>
+    <div>
+      <h3 class="text-center">Fazer uma Nova Postagem</h3>
+      <form>
+        <label for="titulo">Titulo</label>
+        <input
+          class="form-control"
+          type="text"
+          id="titulo"
+          required
+          v-model="post.titulo"
+        />
+        <br />
+        <label for="texto">Texto</label>
+        <input
+          class="form-control"
+          type="text"
+          required
+          id="titulo"
+          v-model="post.texto"
+        />
+        <br />
+        <button class="btn btn-primary" @click.prevent="salvar()" type="buton">
+          Salvar
+        </button>
+      </form>
+    </div>
+    <div class="float-right">
+      <div class="mb-4">
+        <b-avatar variant="success" icon="people-fill"></b-avatar>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -38,6 +45,7 @@ export default {
       }
     }
   },
+   
   methods: {
     salvar () {
       this.$firebase
@@ -55,4 +63,7 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+
+</style>
