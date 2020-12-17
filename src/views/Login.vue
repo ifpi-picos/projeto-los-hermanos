@@ -1,16 +1,12 @@
 <template>
-  <b-container fluid >
-    <br><br><br><br><br>
+  <b-container fluid>
+    <br /><br /><br /><br /><br />
     <b-row align-v="center" align-h="center">
-      <b-col class=" ml-auto mr-auto"
-        md="12">
+      <b-col class="ml-auto mr-auto" md="12">
         <b-card class="col-md-4 ml-auto mr-auto mt-4 bg-light card-login">
           <h2 class="text-center">LOGIN</h2>
           <b-form @submit.prevent="login">
-            <b-form-group
-              label="Email:"
-              label-for="email"
-            >
+            <b-form-group label="Email:" label-for="email">
               <b-input-group>
                 <b-input-group-prepend>
                   <span class="input-group-text icone-input"
@@ -29,10 +25,7 @@
               </b-input-group>
             </b-form-group>
 
-            <b-form-group
-              label="Senha:"
-              label-for="senha"
-            >
+            <b-form-group label="Senha:" label-for="senha">
               <b-input-group>
                 <b-input-group-prepend>
                   <span class="input-group-text icone-input"
@@ -49,8 +42,20 @@
                 ></b-form-input>
               </b-input-group>
             </b-form-group>
-            <b-button type="submit" class="float-right" variant="outline-secondary">Entrar</b-button>
+            <b-button
+              type="submit"
+              class="float-right"
+              variant="outline-secondary"
+              >Entrar</b-button
+            >
           </b-form>
+          <b-button
+            @click="logout"
+            type="submit"
+            class="float-right"
+            variant="outline-secondary"
+            >logout</b-button
+          >
         </b-card>
       </b-col>
     </b-row>
@@ -58,7 +63,7 @@
 </template>
 
 <script>
-import googleProvider from '../firebase/providers'
+
 export default {
   name: 'Login',
   data () {
@@ -69,27 +74,64 @@ export default {
   },
 methods: {
   login () {
-    this.$firebase
-      .auth()
-      .signInWithPopup(googleProvider)
-      .then(async result => {
-        const usuario = {}
-        usuario.photoURL = result.user.photoURL
-        usuario.email = result.user.email
-        usuario.displayName = result.user.displayName
-        this.$router.push({ name: "home" })
-        //await this.salvarUsuario(usuario, result.user.uid)
-      })
-      .catch(function (error) {
-        console.error(error)
-      })
+    this.$firebase.auth().signInWithEmailAndPassword(this.email, this.senha)
+  .then(async(result) => {
+    localStorage.setItem('username', result.user.displayName)
+          const usuario = {}
+          usuario.photoURL = result.user.photoURL
+          usuario.email = result.user.email
+          usuario.displayName = result.user.displayName
+          const usuarioExistente = await this.usuarioExistente(result.user.uid)
+          console.log('usuarioExistente', usuarioExistente)
+          if (!usuarioExistente) {
+            console.log('add new user ')
+            await this.salvarUsuario(usuario, result.user.uid)
+          }
+  })
+  .catch((error) => {
+  console.log(error)
+    //var errorMessage = error.message;
+    // ..
+  });
+
+    },
+
+    async salvarUsuario (usuario, uid) {
+      console.log('usuario: ', usuario, uid)
+      this.$firebase
+        .firestore()
+        .collection('usuarios')
+        .doc(uid)
+        .set(usuario)
+        .then(docRef => {
+          console.log('usuario salvo com sucesso: ', docRef.id)
+        })
+        .catch(function (error) {
+          console.error('Error adding document: ', error)
+        })
+    },
+
+     async usuarioExistente (uid) {
+      const docRef = this.$firebase
+        .firestore()
+        .collection('usuarios')
+        .doc(uid)
+      const doc = await docRef.get()
+      return doc.exists
+    },
+
+    logout() {
+      this.$firebase.auth().signOut().then(function() {
+        console.log("sucesso")
+      }).catch(function(error) {
+        console.log(error)
+      });
     }
   }
-}
 
+}
 </script>
 <style scoped>
-
 .input-group-text {
   background: #fff !important;
   border-right: none !important;

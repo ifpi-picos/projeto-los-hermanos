@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="text-center">Novo Post</h3>
+    <h3 class="text-center">Fazer uma Nova Postagem</h3>
     <form>
       <label for="titulo">Titulo</label>
       <input
@@ -55,6 +55,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
