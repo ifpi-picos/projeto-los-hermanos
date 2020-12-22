@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div id="editor">
+
+    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+    <!-- <div id="editor">
       <h3 class="text-center">Fazer uma Nova Postagem</h3>
       <form>
         <label for="titulo">Titulo</label>
@@ -25,21 +27,19 @@
           Salvar
         </button>
       </form>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default {
   data () {
     return {
-      post: {
-        titulo: '',
-        texto: '',
-        data: new Date(),
-        autor: ''
-      }
+      editor: ClassicEditor,
+        editorData: '',
+        editorConfig: {}
     }
   },
 
@@ -55,13 +55,7 @@ export default {
         .catch(function (error) {
           console.error('Error adding document: ', error)
         })
-    },
-    ClassicEditor.create()
-    ClassicEditor
-      .create( document.querySelector( '#editor' ) )
-      .catch( error => {
-          console.error( error );
-      } );
+    }
   }
 }
 </script>
