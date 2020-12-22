@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import firebase from 'firebase'
+//import firebase from 'firebase'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -28,6 +28,12 @@ const routes = [{
             import ('../views/Postagem.vue')
     },
     {
+        path: '/posts',
+        name: 'posts',
+        component: () =>
+            import ('../views/Posts.vue')
+    },
+    {
         path: '*',
         component: () =>
             import ('../views/404.vue')
@@ -40,7 +46,7 @@ const router = new VueRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
+/*router.beforeEach((to, from, next) => {
     try {
         const HOME = '/'
         const LOGIN = '/login'
@@ -60,5 +66,5 @@ router.beforeEach((to, from, next) => {
     } catch (error) {
         console.error(error)
     }
-})
+})*/
 export default router

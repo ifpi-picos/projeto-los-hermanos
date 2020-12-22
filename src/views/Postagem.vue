@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div id="editor">
       <h3 class="text-center">Fazer uma Nova Postagem</h3>
       <form>
         <label for="titulo">Titulo</label>
@@ -26,26 +26,23 @@
         </button>
       </form>
     </div>
-    <div class="float-right">
-      <div class="mb-4">
-        <b-avatar variant="success" icon="people-fill"></b-avatar>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
       post: {
         titulo: '',
         texto: '',
-        data: new Date()
+        data: new Date(),
+        autor: ''
       }
     }
   },
-   
+
   methods: {
     salvar () {
       this.$firebase
@@ -58,7 +55,13 @@ export default {
         .catch(function (error) {
           console.error('Error adding document: ', error)
         })
-    }
+    },
+    ClassicEditor.create()
+    ClassicEditor
+      .create( document.querySelector( '#editor' ) )
+      .catch( error => {
+          console.error( error );
+      } );
   }
 }
 </script>
