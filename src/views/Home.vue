@@ -7,52 +7,20 @@
     <b-container>
       <b-row>
         <b-card
-          title="Ads auxilio1"
-          img-src="https://picsum.photos/600/300/?image=25"
-          img-alt="Image"
-          img-top
+          v-for="item in posts"
+          :key="item.id"
+          :title="item.data().title"
           tag="article"
           style="max-width: 20rem;"
           class="mb-2"
         >
           <b-card-text>
-            O auxlio da turma de ads será depositado logo mais.
+            <p v-html="item.data().content"></p>
           </b-card-text>
 
           <b-button href="#" variant="primary">saiba mais</b-button>
         </b-card>
 
-        <b-card
-          title="Ads auxilio2"
-          img-src="https://picsum.photos/600/300/?image=25"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem;"
-          class="ml-right"
-        >
-          <b-card-text>
-            O auxlio da turma de ads será depositado logo mais.
-          </b-card-text>
-
-          <b-button href="#" variant="primary">saiba mais</b-button>
-        </b-card>
-
-        <b-card
-          title="Ads auxilio3"
-          img-src="https://picsum.photos/600/300/?image=25"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem;"
-          class="ml-auto"
-        >
-          <b-card-text>
-            O auxlio da turma de ads será depositado logo mais.
-          </b-card-text>
-
-          <b-button href="#" variant="primary">saiba mais</b-button>
-        </b-card>
       </b-row>
     </b-container>
   </div>
@@ -61,11 +29,29 @@
 <script>
 // @ is an alias to /src
 import Header from '@/components/Header.vue'
-
+import firebase from 'firebase';
 export default {
   name: 'Home',
   components: {
     Header
+  },
+  data() {
+    return {
+      posts: [],
+      unsubscribe: null
+    }
+  }, 
+  methods: {
+    onDataChange(items) {
+      console.log(items.docs)
+      this.posts = items.docs;
+    },
+  },
+  mounted() {
+    this.unsubscribe = firebase.firestore().collection('posts').onSnapshot(this.onDataChange);
+  },
+  beforeDestroy() {
+    this.unsubscribe();
   }
 }
 </script>

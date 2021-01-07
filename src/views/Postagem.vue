@@ -1,13 +1,17 @@
 <template>
   <div>
-
-    <form class="post">
+    <b-container fluid class="pr-0 pl-0">
+      <Header></Header>
+      
+    </b-container>
+    <b-container>
+      <form class="post">
       <b-row>
         <b-col md="12">
           <b-form-group 
           label="Título da postagem"
           label-for="postTitle">
-          <b-form-input id="postTitle"> {{postTitle}} </b-form-input>
+          <b-form-input id="postTitle" v-model="postTitle"> {{postTitle}} </b-form-input>
 
         </b-form-group>
         </b-col>
@@ -26,6 +30,8 @@
       </b-row>
       
     </form>
+    </b-container>
+    
 
     
     <!-- <div id="editor">
@@ -59,8 +65,12 @@
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Header from '@/components/Header.vue';
 
 export default {
+  components: {
+    Header
+  },
   data () {
     return {
       editor: ClassicEditor,
