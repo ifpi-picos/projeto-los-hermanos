@@ -81,7 +81,7 @@ export default {
       }
 
       this.$firebase.firestore().collection('posts').add(postData).then(() => {
-        this.$router.push('/posts');
+        this.$router.push('/');
       })
       // this.$firebase
       //   .firestore()

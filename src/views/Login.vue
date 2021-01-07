@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
   name: 'Login',
   data () {
@@ -66,53 +67,59 @@ export default {
   },
   methods: {
     login () {
-      this.$firebase
+      firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.senha)
-        .then(async result => {
-          localStorage.setItem('username', result.user.displayName)
-          const usuario = {}
-          usuario.photoURL = result.user.photoURL
-          usuario.email = result.user.email
-          usuario.displayName = result.user.displayName
-          const usuarioExistente = await this.usuarioExistente(result.user.uid)
-          console.log('usuarioExistente', usuarioExistente)
-          if (!usuarioExistente) {
-            console.log('add new user ')
-            await this.salvarUsuario(usuario, result.user.uid)
-          }
+        .then(() => {
+          // localStorage.setItem('username', result.user.displayName)
+          // const usuario = {}
+          // usuario.photoURL = result.user.photoURL
+          // usuario.email = result.user.email
+          // usuario.displayName = result.user.displayName
+          // const usuarioExistente = await this.usuarioExistente(result.user.uid)
+          // console.log('usuarioExistente', usuarioExistente)
+          // if (!usuarioExistente) {
+          //   console.log('add new user ')
+          //   await this.salvarUsuario(usuario, result.user.uid)
+          // }
+          console.log(firebase.auth().currentUser);
+          this.$router.push({ name: 'home'})
+          console.log('Ok');
         })
-        this.$router.push({ name: 'home'})
         .catch(error => {
           console.log(error)
-          //var errorMessage = error.message;
-          // ..
+          this.$bvToast.toast('Email ou senha incorretos.', {
+            title: 'Erro',
+            autoHideDelay: 5000,
+            noCloseButton: true,
+            variant: 'danger'
+          })
         })
     },
 
-    async salvarUsuario (usuario, uid) {
-      console.log('usuario: ', usuario, uid)
-      this.$firebase
-        .firestore()
-        .collection('usuarios')
-        .doc(uid)
-        .set(usuario)
-        .then(docRef => {
-          console.log('usuario salvo com sucesso: ', docRef.id)
-        })
-        .catch(function (error) {
-          console.error('Error adding document: ', error)
-        })
-    },
+    // async salvarUsuario (usuario, uid) {
+    //   console.log('usuario: ', usuario, uid)
+    //   this.$firebase
+    //     .firestore()
+    //     .collection('usuarios')
+    //     .doc(uid)
+    //     .set(usuario)
+    //     .then(docRef => {
+    //       console.log('usuario salvo com sucesso: ', docRef.id)
+    //     })
+    //     .catch(function (error) {
+    //       console.error('Error adding document: ', error)
+    //     })
+    // },
 
-    async usuarioExistente (uid) {
-      const docRef = this.$firebase
-        .firestore()
-        .collection('usuarios')
-        .doc(uid)
-      const doc = await docRef.get()
-      return doc.exists
-    },
+    // async usuarioExistente (uid) {
+    //   const docRef = this.$firebase
+    //     .firestore()
+    //     .collection('usuarios')
+    //     .doc(uid)
+    //   const doc = await docRef.get()
+    //   return doc.exists
+    // },
   }
 }
 </script>
