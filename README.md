@@ -2,7 +2,7 @@
 
 ## Login na aplicação
 ```
-https://mural-virtual-ifpi.web.app/login
+https://mural-virtual-ifpi.web.app
 ```
 
 ## Project setup
