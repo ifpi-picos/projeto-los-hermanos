@@ -1,23 +1,23 @@
 # web-dev
 
+## Login na aplicação
+```
+https://mural-virtual-ifpi.web.app/login
+```
+
 ## Project setup
 ```
-yarn install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
+npm build
 ```
 
 ### Customize configuration
